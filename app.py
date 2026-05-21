@@ -41,7 +41,8 @@ robot_img_src = load_image_b64(
 # ── Data ────────────────────────────────────────────────────────────────────────
 NAV_LINKS = [
     ("Home", "#hero"), ("About", "#about"), ("Projects", "#projects"),
-    ("Tech Stack", "#stack"), ("My Experience", "#my-experience"), ("Contact", "#contact"),
+    ("Tech Stack", "#stack"), ("My Experience", "#my-experience"),
+    ("Certifications", "#certifications"), ("Contact", "#contact"),
 ]
 
 ABOUT_PARAGRAPHS = [
@@ -82,8 +83,34 @@ SOCIAL_LINKS = [
     ("GitHub",   "https://github.com/kasthuri-tech",        "https://simpleicons.org/icons/github.svg"),
     ("LinkedIn", "https://www.linkedin.com/in/kasthuri-vision", "https://simpleicons.org/icons/linkedin.svg"),
 ]
+CERTIFICATIONS = [
+    (
+        "PSPO I Certification",
+        "Scrum.org",
+        "✅ Certified",
+        "certified",
+        "🏅",
+        "Professional Scrum Product Owner — demonstrates mastery of the Scrum framework and product ownership."
+    ),
+    (
+        "PMP Training",
+        "IMC Certifications",
+        "🔄 Preparing for Certification | Expected 2026",
+        "preparing",
+        "📋",
+        "Project Management Professional training covering advanced project delivery and leadership frameworks."
+    ),
+    (
+        "Data Science Certification",
+        "GUVI.in, Chennai",
+        "📅 Expected 2026",
+        "upcoming",
+        "🤖",
+        "Comprehensive AI & Data Science program covering Machine Learning, Python, and applied data analytics."
+    ),
+]
 
-# ── HTML Builders ───────────────────────────────────────────────────────────────
+
 def build_nav():
     parts = []
     for label, href in NAV_LINKS:
@@ -94,6 +121,24 @@ def build_nav():
 
 def build_tags(tags):
     return "\n".join(f'<span class="tag">{t}</span>' for t in tags)
+
+def build_cert_cards():
+    colors = {"certified": "#00f2fe", "preparing": "#a78bfa", "upcoming": "#f59e0b"}
+    cards = []
+    for title, org, status, status_key, icon, desc in CERTIFICATIONS:
+        c = colors.get(status_key, "#00f2fe")
+        cards.append(f'''<div class="cert-card glass-panel fade-in">
+            <div class="cert-left">
+                <p class="cert-org">{org}</p>
+                <h3 class="cert-title">{title}</h3>
+                <p class="cert-desc">{desc}</p>
+                <span class="cert-status" style="color:{c};border-color:{c};">{status}</span>
+            </div>
+            <div class="cert-badge" style="border-color:{c};box-shadow:0 0 25px {c}40;">
+                <span class="cert-icon">{icon}</span>
+            </div>
+        </div>''')
+    return "\n".join(cards)
 
 def build_stack_cards():
     delays = ["delay-1","delay-2","delay-3","delay-1","delay-2"]
@@ -220,6 +265,15 @@ html_content = f"""<!DOCTYPE html>
         {build_experience_slides()}
       </div>
       <button class="slider-btn right" id="slideRight">❯</button>
+    </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications" class="section">
+    <h2 class="section-heading fade-in delay-1" style="margin-bottom:2.5rem;">Certifications &amp; Learning</h2>
+    <div class="cert-container">
+      {build_cert_cards()}
     </div>
   </section>
 
