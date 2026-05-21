@@ -270,7 +270,7 @@ html_content = f"""<!DOCTYPE html>
   </section>
 
   <!-- CERTIFICATIONS -->
-  <section id="certifications" class="section">
+  <section id="certifications" class="section" style="padding-bottom: 5rem;">
     <h2 class="section-heading fade-in delay-1" style="margin-bottom:2.5rem;">Certifications &amp; Learning</h2>
     <div class="cert-container">
       {build_cert_cards()}
